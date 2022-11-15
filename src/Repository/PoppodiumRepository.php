@@ -18,6 +18,31 @@ class PoppodiumRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Poppodium::class);
     }
+        
+    public function savePodium($params) {
+        
+        $podium = new Poppodium();
+        $podium->setNaam($params["naam"]);
+        $podium->setAdres($params["adres"]);
+        $podium->setPostcode($params["postcode"]);
+        $podium->setTelefoonnummer($params["telefoonnummer"]);
+        $podium->setEmail($params["email"]);
+        $podium->setWebsite($params["website"]);
+        $podium->setLogoUrl($params["logo"]);
+        $podium->setAfbeeldingUrl($params["afbeelding"]);
+
+        $this->_em->persist($podium);
+        $this->_em->flush();
+
+        return($podium);
+
+    }
+
+    public function fetchPoppodium($id) {
+        return($this->find($id));
+    }
+
+
 
     // /**
     //  * @return Poppodium[] Returns an array of Poppodium objects

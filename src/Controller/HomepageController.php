@@ -10,17 +10,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+
+use App\Entity\Optreden;
+
+
 
 #[Route('/homepage')]
 
 class HomepageController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
-    #[Template()]
+    private $em;
+    private $optredenRep;
 
-     public function index()
+    public function __construct(EntityManagerInterface $em){
+        $this->em = $em;
+        $this->optredenRep = $this->em->getRepository(Optreden::class);
+    }
+
+    #[Route('/', name: 'homepage')]
+    //#[Template()]
+
+     public function index() :Response
     {
-        return ['controller_name' => 'HomepageController'];
+        
+        $data = $this->optredenRep->getAllOptredens();
+
+        dump($data);
+        die();
+
     }
 
     #[Route('/backhome', name: 'backhome')]
