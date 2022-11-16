@@ -30,15 +30,15 @@ class HomepageController extends AbstractController
     }
 
     #[Route('/', name: 'homepage')]
-    //#[Template()]
+    #[Template()]
 
-     public function index() :Response
+     public function index() //:Response
     {
         
-        $data = $this->optredenRep->getAllOptredens();
+      // $data = $this->optredenRep->getAllOptredens();
 
-        dump($data);
-        die();
+       // dump($data);
+       // die();
 
     }
 
