@@ -26,23 +26,13 @@ class OptredenRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Optreden::class);
-        $this->artiestRep = $this->_em->getRepository(Artiest::class);
-        $this->poppodiumRep = $this->_em->getRepository(Poppodium::class);
+        //$this->artiestRep = $this->_em->getRepository(Artiest::class);
+        //$this->poppodiumRep = $this->_em->getRepository(Poppodium::class);
     }
 
     public function getAllOptredens() {
         $data = $this->findAll();
         return($data);
-    }
-
-    private function fetchArtiest($id) {
-        $artiest = $this->artiestRep->fetchArtiest($id);
-        return($artiest);
-    }
-
-    private function fetchPoppodium($id) {
-        $podium = $this->poppodiumRep->fetchPoppodium($id);
-        return($podium);
     }
 
     public function saveOptreden($params) {
@@ -55,13 +45,9 @@ class OptredenRepository extends ServiceEntityRepository
         
         $optreden->setPoppodium($this->fetchPoppodium($params["poppodium_id"]));
         $optreden->setArtiest($this->fetchArtiest($params["hoofdprogramma_id"]));
-
-        if(isset($params["voorprogramma_id"])) {
-            $optreden->setVoorprogramma($this->fetchArtiest($params["voorprogramma_id"]));
-        }
+        $optreden->setVoorprogramma($this->fetchArtiest($params["voorprogramma_id"]));
         $optreden->setOmschrijving($params["omschrijving"]);
         $optreden->setDatum(new \DateTime($params["datum"]));
-
         $optreden->setPrijs($params["prijs"]);
         $optreden->setTicketUrl($params["ticket_url"]);
         $optreden->setAfbeelding($params["afbeelding_url"]);
