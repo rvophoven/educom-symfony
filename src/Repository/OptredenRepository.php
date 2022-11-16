@@ -4,11 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Optreden;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-
 use App\Entity\Artiest;
 use App\Entity\Poppodium;
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 
 /**
@@ -19,20 +19,14 @@ use App\Entity\Poppodium;
  */
 class OptredenRepository extends ServiceEntityRepository
 {
-    private $artiestRep;
-    private $poppodiumRep;
-
 
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Optreden::class);
-        //$this->artiestRep = $this->_em->getRepository(Artiest::class);
-        //$this->poppodiumRep = $this->_em->getRepository(Poppodium::class);
     }
 
     public function getAllOptredens() {
-        $data = $this->findAll();
-        return($data);
+        return($this->findAll());        
     }
 
     public function saveOptreden($params) {
@@ -43,11 +37,11 @@ class OptredenRepository extends ServiceEntityRepository
             $optreden = new Optreden();
         }
         
-        $optreden->setPoppodium($this->fetchPoppodium($params["poppodium_id"]));
-        $optreden->setArtiest($this->fetchArtiest($params["hoofdprogramma_id"]));
-        $optreden->setVoorprogramma($this->fetchArtiest($params["voorprogramma_id"]));
+        $optreden->setPoppodium($params["poppodium"]);
+        $optreden->setArtiest($params["hoofdprogramma"]);
+        $optreden->setVoorprogramma($params["voorprogramma"]);
         $optreden->setOmschrijving($params["omschrijving"]);
-        $optreden->setDatum(new \DateTime($params["datum"]));
+        $optreden->setDatum($params["datum"]);
         $optreden->setPrijs($params["prijs"]);
         $optreden->setTicketUrl($params["ticket_url"]);
         $optreden->setAfbeelding($params["afbeelding_url"]);
@@ -84,7 +78,7 @@ class OptredenRepository extends ServiceEntityRepository
         return($data);
     }
 
-
+}
     // /**
     //  * @return Optreden[] Returns an array of Optreden objects
     //  */
@@ -113,4 +107,4 @@ class OptredenRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+

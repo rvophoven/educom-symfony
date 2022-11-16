@@ -44,4 +44,9 @@ class OptredenService {
         $result = $this->optredenRepository->saveOptreden($data);
         return($result);
     }
+
+    public function deleteOptreden($id) {
+        $result = $this->optredenRepository->deleteOptreden($id);
+        return($result);
+    }
 }

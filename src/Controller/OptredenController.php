@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Optreden;
-use App\Entity\Artiest;
-use App\Entity\Poppodium;
 use App\Service\OptredenService;
 
 #[Route('/optreden', name: 'optreden')]
@@ -23,12 +20,10 @@ class OptredenController extends AbstractController
 
     #[Route('/save', name: 'optreden_save')]
 
-    
-
     public function saveOptreden() {
 
             $optreden = [
-                "id" => 4,
+                "id" => 12,
                 "poppodium_id" => 1,
                 "hoofdprogramma_id" => 1, 
                 "voorprogramma_id" => 2,
@@ -40,19 +35,18 @@ class OptredenController extends AbstractController
             ];
     
             $result = $this->os->saveOptreden($optreden);
-            dd($result);
 
-            //$id = "10";
-           // $result2 = $rep->deleteOptreden($id);
-            //dd($result2);
-        }
+            $id = 11;
+            $result2 = $this->os->deleteOptreden($id);
+            dd($result, $result2);
+    }
 
 
 
     
         
 
-    }
+}
 
 
 
@@ -64,4 +58,4 @@ class OptredenController extends AbstractController
         ]);
     }
     */
-}
+
